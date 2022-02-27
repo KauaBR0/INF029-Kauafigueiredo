@@ -11,7 +11,7 @@ int main()
   printf("digite o segundo valor\n");
   scanf("%d", &b);
 
-  a=a+b;     
+  a=a+b;     //isso
   b=a-b;     
   a=a-b;   
   printf("os valores invertidos são %d e %d \n", a, b);
