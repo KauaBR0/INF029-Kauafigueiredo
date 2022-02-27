@@ -6,11 +6,11 @@ int main()
 {
   int idd;
 
-  printf("digite sua idade\n");
-  scanf("%d", &idd);
   
   for (int i = 0; i < idd; i++)
   {
+        printf("digite sua idade\n");
+        scanf("%d", &idd);
       if (idd > 18)
       {
           printf(" de maior\n");
