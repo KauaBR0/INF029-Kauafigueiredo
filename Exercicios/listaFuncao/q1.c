@@ -1,31 +1,25 @@
 #include <stdio.h>
 
-int sum();
-int subt();
-int mult();
 
-int sum(int x, int y){
-  return x + y;
-}
-int subt(int x, int y){
-  return x - y;
-}
-int mult(int x, int y){
-  return x * y;
+int soma(int x, int y){
+
+  int soma;
+  soma = x + y;
+
+
+  return soma;
+  
 }
 
 int main(){
-  int a, b, c, d;
-  int soma, sub, mul;
-  
+
+    int a, b, sum;
+
   scanf("%d", &a);
   scanf("%d", &b);
-  scanf("%d", &c);
-  scanf("%d", &d);
-  soma = sum(a, b);
-  sub = subt(c, d);
-  mul = mult(soma, sub);
-
-  printf("%d", mul);
+  
+  sum = soma(a, b);
+  printf("%d", sum);  
   
 }
+
