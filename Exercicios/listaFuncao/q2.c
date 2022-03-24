@@ -1,24 +1,20 @@
-#include <stdio.h>
+# include <stdio.h>
 
-int soma();
+int  subt ();
 
-int soma(){
-  int a, b, soma;
-
-  scanf("%d", &a);
-  scanf("%d", &b);
-
-  soma = a + b;
-
-  printf("%d", soma);
-
-  return soma;
-  
+int  subt ( int x, int y, int z){
+  return x - y - z;
 }
 
-int main(){
-  soma();
-  return 1;
+int  main (){
+  int a, b, c;
+  int sub;
   
-}
+  scanf ( "%d" , &a);
+  scanf ( "%d" , &b);
+  scanf ( "%d" , &c);
+  
+  sub = subt (a, b, c);
 
+  printf ( "%d" ,sub);
+}
