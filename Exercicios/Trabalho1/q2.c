@@ -15,6 +15,36 @@ int diaparadata(int qd)
     printf ("\n %d ano(s) %d mese(s) e %d dia(s) ", a,m,d);
 }
 
+int validardata(int dd, int mm, int aa) {
+       if (aa >= 1 && aa <= 9999)
+    {
+        //verificar mes
+        if (mm >= 1 && mm <= 12)
+        {
+            //verificar dias
+            if ((dd >= 1 && dd <= 31) && (mm == 1 || mm == 3 || mm == 5 || mm == 7 || mm == 8 || mm == 10 || mm == 12))
+                return 1;
+            else if ((dd >= 1 && dd <= 30) && (mm == 4 || mm == 6 || mm == 9 || mm == 11))
+                return 1;
+            else if ((dd >= 1 && dd <= 28) && (mm == 2))
+                return 1;
+            else if (dd == 29 && mm == 2 && (aa % 400 == 0 || (aa % 4 == 0 && aa % 100 != 0)))
+                return 1;
+            else
+                return 0;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+
+}
+
 int bissexto (int ano);
 unsigned long dist_dias (Data inicio, Data fim);
 
@@ -24,16 +54,20 @@ int dias_mes[2][13] = {{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
 
 int main(void) {
 	Data dia1, dia2;
-    int qtdias;
+	int qtdias;
+	
 
 	printf("Coloque data incial no formato: dia/mes/ano\n");
 	scanf("%d/%d/%d", &dia1.dia, &dia1.mes, &dia1.ano);
 	printf("Coloque data final no formato: dia/mes/ano\n");
 	scanf("%d/%d/%d", &dia2.dia, &dia2.mes, &dia2.ano);
-
-	qtdias = dist_dias (dia1, dia2);
-    diaparadata(qtdias);
-
+    
+	if(validardata(dia1.dia, dia1.mes, dia1.ano) == 1 && validardata(dia2.dia, dia2.mes, dia2.ano) == 1) {
+  	qtdias = dist_dias (dia1, dia2);
+	  	diaparadata(qtdias);									
+	} else {
+ 	 printf("\nData invalida\n");
+	}
 	return 0;
 }
 
