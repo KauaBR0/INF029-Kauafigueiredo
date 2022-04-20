@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,6 +7,30 @@ int vezes(int n, int k) {
     int aux = n;
     while (aux != 0) {
         if (aux % 10 == k) {
+            cont++;
+        }
+        else if (aux % 100 == k) {
+            cont++;
+        }
+        else if (aux % 1000 == k) {
+            cont++;
+        }
+        else if (aux % 10000 == k) {
+            cont++;
+        }
+        else if (aux % 100000 == k) {
+            cont++;
+        }
+        else if (aux % 1000000 == k) {
+            cont++;
+        }
+        else if (aux % 10000000 == k) {
+            cont++;
+        }
+        else if (aux % 100000000 == k) {
+            cont++;
+        }
+        else if (aux % 1000000000 == k) {
             cont++;
         }
         aux /= 10;
