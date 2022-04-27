@@ -286,28 +286,17 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
  @saida
     Um número n >= 0.
  */
-int q3(char *texto, char c, int isCaseSensitive)
-{
-    int qtdOcorrencias = 0;
+int q3(char texto[], char c, int isCaseSensitive){
     int i;
-    char correspondentCharacter;
-    int tamanhoTexto = strlen(texto);
-
-    for (i = 0; i < tamanhoTexto; i++)
-        if (c == texto[i])
+    int qtdOcorrencias = 0;
+    if((isCaseSensitive==0) && c>='A' && c<='Z')
+        c+='a'-'A';
+    for(i=0;texto[i];i++){
+        if(texto[i]==c)
             qtdOcorrencias++;
-
-    if (isCaseSensitive != 1) {
-        if (c > 'a' && c < 'z') 
-            correspondentCharacter = c - 32;
-        else if (c > 'A' && c < 'Z') {
-            correspondentCharacter = c + 32;
-        }
-        for (i = 0; i < tamanhoTexto; i++)
-            if (correspondentCharacter == texto[i])
-                qtdOcorrencias++;
+        if((isCaseSensitive==0)&&(texto[i]>='A')&&(texto[i]<='Z')&&(texto[i]==(c+'A'-'a')))
+            qtdOcorrencias++;
     }
-
     return qtdOcorrencias;
 }
 
@@ -326,53 +315,41 @@ int q3(char *texto, char c, int isCaseSensitive)
         O retorno da função, n, nesse caso seria 1;
 
  */
-int q4(char *strTexto, char *strBusca, int posicoes[30])
+int q4(char texto[], char palavra[], int posicoes[])
 {
-    
-    int indices = 0;
-    int tamanhoTexto = strlen(strTexto);
-    int tamanhoBusca = strlen(strBusca);
-    int String = 0;
+  int Tmpalavra = strlen(palavra);
+  int Tmtext = strlen(texto);
+  int i, j, k, posi, posf;
+  int ocorrencias = 0;
+  int acentos = 0;
 
-    int i, j, k;
-    int qtdOcorrencias = 0;
-    int Caracter = 0;
-
-    for (i = 0, j = 0, k = 0; k < tamanhoTexto; i++, j++) {
-        
-        if (!(strTexto[i] > 0 && strTexto[i] < 127)) {
-            String = 0;
-            k++;
-            i = k - 1;
-            j = -1;
-            Caracter++;
-            
-        }
-
-        if (strTexto[i] == strBusca[j]) {
-            String++;
-            if (String == tamanhoBusca) {
-                posicoes[indices] = k + 1 - Caracter;
-                posicoes[indices + 1] = k + tamanhoBusca - Caracter;
-                indices+=2;
-
-                String = 0;
-                k++;
-                i = k - 1;
-                j = -1;
-                qtdOcorrencias++;
-            }
-        }
-        else {
-            String = 0;
-            k++;
-            i = k - 1;
-            j = -1;
-        }
+  for (i = 0; i < Tmtext; i++)
+  {
+    if (texto[i] < 0 && texto[i + 1] < 0)
+    {
+      acentos++;
     }
-    
+    if (texto[i] == palavra[j])
+    {
+      j++;
 
-    return qtdOcorrencias;
+      if (j == Tmpalavra)
+      {
+        posi = ocorrencias * 2;
+        posf = ocorrencias * 2 + 1;
+
+        posicoes[posi] = i - j + 2;
+        posicoes[posf] = i + 1 - acentos;
+
+        ocorrencias++;
+        j = 0;
+      }
+    }
+    else
+      j = 0;
+  }
+
+  return ocorrencias;
 }
 
 /*
@@ -409,20 +386,41 @@ int q5(int num)
  @saida
     Quantidade de vezes que número de busca ocorre em número base
  */
-
-int q6(int numerobase, int numerobusca)
+long int acharUnidade(long int valor)
 {
-    int Ocorrer=0; 
-    int j=10;
-    for(; numerobusca/j>0; j*=10);
-    
-    while(numerobase>=numerobusca)
-    {
-	if(numerobase%j == numerobusca)
+  long int unidade = 1;
+
+  while (unidade <= valor)
+    unidade *= 10;
+  unidade = unidade / 10;
+
+  return unidade;
+}
+
+int q6(long int valor, long int numeroBusca)
+{
+  long int unidadesValor = 1, unidadesNumeroBusca = 1;
+  long int ocorrencias = 0;
+  long int resto = -1;
+  long int i, j;
+
+  unidadesValor = acharUnidade(valor);
+  unidadesNumeroBusca = acharUnidade(numeroBusca);
+
+  while (unidadesValor >= unidadesNumeroBusca)
   {
-		Ocorrer++;
-	}
-	numerobase/=10;
+    resto = (valor / (unidadesValor / unidadesNumeroBusca));
+    if (resto == numeroBusca)
+    {
+      ocorrencias++;
+      unidadesValor /= unidadesNumeroBusca;
+      valor %= unidadesValor;
     }
-    return Ocorrer;
+    else
+    {
+      valor %= unidadesValor;
+      unidadesValor /= 10;
+    }
+  }
+  return ocorrencias;
 }

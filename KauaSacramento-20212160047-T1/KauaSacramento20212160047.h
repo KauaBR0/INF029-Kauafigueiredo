@@ -41,8 +41,10 @@ int fatorial(int x); //função utilizada para testes
 int q1(char data[]);
 DiasMesesAnos q2(char datainicial[], char datafinal[]);
 int q3(char *texto, char c, int isCaseSensitive);
-int q4(char *strTexto, char *strBusca, int posicoes[30]);
+int q4(char texto[], char palavra[], int posicoes[]);
 int q5(int num);
-int q6(int numerobase, int numerobusca);
+long int acharUnidade(long int valor);
+int q6(long int valor, long int numeroBusca);
+
 
 #endif  // TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H
