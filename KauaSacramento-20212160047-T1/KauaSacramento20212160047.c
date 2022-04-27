@@ -228,18 +228,6 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 		dma.retorno = 4;
     return dma;
 	}	
-		else if(inidat.ano==findat.ano){
-			if(inidat.mes>findat.mes){
-			 dma.retorno = 4;
-       return dma;
-			}
-				else if(inidat.mes==findat.mes){
-					if(inidat.dia>findat.dia){
-					dma.retorno = 4;
-          return dma;
-					}
-			}
-		}
 	nDias=findat.dia-inidat.dia;
 	nMeses=findat.mes-inidat.mes;
 	nAnos=findat.ano-inidat.ano;
