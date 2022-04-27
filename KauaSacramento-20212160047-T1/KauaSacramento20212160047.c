@@ -1,0 +1,428 @@
+// #################################################
+//  Instituto Federal da Bahia
+//  Salvador - BA
+//  Curso de Análise e Desenvolvimento de Sistemas http://ads.ifba.edu.br
+//  Disciplina: INF029 - Laboratório de Programação
+//  Professor: Renato Novais - renato@ifba.edu.br
+
+//  ----- Orientações gerais -----
+//  Descrição: esse arquivo deve conter as questões do trabalho do aluno.
+//  Cada aluno deve renomear esse arquivo para Aluno<MATRICULA>.c
+//  O aluno deve preencher seus dados abaixo, e implementar as questões do trabalho
+
+//  ----- Dados do Aluno -----
+//  Nome: kauã figueiredo do sacramento
+//  email:  kaua.sacramento@gmail.com  
+//  Matrícula: 20212160047
+//  Semestre: 2022.1
+
+//  Copyright © 2016 Renato Novais. All rights reserved.
+// Última atualização: 07/05/2021 - 19/08/2016
+
+// #################################################
+
+#include <stdio.h>
+#include "KauaSacramento20212160047.h" // Substitua pelo seu arquivo de header renomeado
+#include <stdlib.h>
+#include <string.h>
+/*
+## função utilizada para testes  ##
+
+ somar = somar dois valores
+@objetivo
+    Somar dois valores x e y e retonar o resultado da soma
+@entrada
+    dois inteiros x e y
+@saida
+    resultado da soma (x + y)
+ */
+int somar(int x, int y)
+{
+    int soma;
+    soma = x + y;
+    return soma;
+}
+
+/*
+## função utilizada para testes  ##
+
+ fatorial = fatorial de um número
+@objetivo
+    calcular o fatorial de um número
+@entrada
+    um inteiro x
+@saida
+    fatorial de x -> x!
+ */
+int fatorial(int x)
+{ //função utilizada para testes
+  int i, fat = 1;
+    
+  for (i = x; i > 1; i--)
+    fat = fat * i;
+    
+  return fat;
+}
+/*
+int teste(int a)
+{
+    int val;
+    if (a == 2)
+        val = 3;
+    else
+        val = 4;
+
+    return val;
+}
+
+
+
+DataQuebrada quebraData(char data[]){
+  DataQuebrada dq;
+  char sDia[3];
+	char sMes[3];
+	char sAno[5];
+	int i; 
+
+	for (i = 0; data[i] != '/'; i++){
+		sDia[i] = data[i];	
+	}
+	if(i == 1 || i == 2){ // testa se tem 1 ou dois digitos
+		sDia[i] = '\0';  // coloca o barra zero no final
+	}else {
+		dq.valido = 0;
+    return dq;
+  }  
+	
+
+	int j = i + 1; //anda 1 cada para pular a barra
+	i = 0;
+
+	for (; data[j] != '/'; j++){
+		sMes[i] = data[j];
+		i++;
+	}
+
+	if(i == 1 || i == 2){ // testa se tem 1 ou dois digitos
+		sMes[i] = '\0';  // coloca o barra zero no final
+	}else {
+		dq.valido = 0;
+    return dq;
+  }
+	
+
+	j = j + 1; //anda 1 cada para pular a barra
+	i = 0;
+	
+	for(; data[j] != '\0'; j++){
+	 	sAno[i] = data[j];
+	 	i++;
+	}
+
+	if(i == 2 || i == 4){ // testa se tem 2 ou 4 digitos
+		sAno[i] = '\0';  // coloca o barra zero no final
+	}else {
+		dq.valido = 0;
+    return dq;
+  }
+
+  dq.iDia = atoi(sDia);
+  dq.iMes = atoi(sMes);
+  dq.iAno = atoi(sAno); 
+
+	dq.valido = 1;
+    
+  return dq;
+}
+*/
+/*
+ Q1 = validar data
+@objetivo
+    Validar uma data
+@entrada
+    uma string data. Formatos que devem ser aceitos: dd/mm/aaaa, onde dd = dia, mm = mês, e aaaa, igual ao ano. dd em mm podem ter apenas um digito, e aaaa podem ter apenas dois digitos.
+@saida
+    0 -> se data inválida
+    1 -> se data válida
+ @restrições
+    Não utilizar funções próprias de string (ex: strtok)   
+    pode utilizar strlen para pegar o tamanho da string
+ */
+date Quebradata(char* data){
+	date rdate;
+	int md=1, td=strlen(data)-1, j, vd[3]={0};
+	for(j = 0; j < 3; j++){
+		for(;td>=0;td--){
+			if(data[td]=='/'){
+				md=1;
+				td--;
+				break;
+			}
+			vd[j]+=(data[td]-48)*md;
+			md*=10;
+		}
+	}
+	rdate.dia=vd[2];
+	rdate.mes=vd[1];
+	rdate.ano=vd[0];
+	return rdate;
+}
+int Testadata(date *tdata){
+    	if(tdata->dia<1 || tdata->dia > 31 || tdata->mes < 1 || tdata->mes > 12)
+		return 0;
+	if((tdata->mes==2 && tdata->dia==29) && ((tdata->ano%4!=0 || tdata->ano%100==0)  && tdata->ano%400!=0))
+		return 0;
+	else if(tdata->dia ==31 && ((tdata->mes<=7 && tdata->mes%2==0) || tdata->mes%2!=0))
+		return 0;
+
+	return 1;
+	  }
+int q1(char *data)
+{
+	date tdata=Quebradata(data);
+    int datavalida = 1;
+    datavalida=Testadata(&tdata);
+
+	if (datavalida)
+		return 1;
+	else
+		return 0;
+}
+
+
+
+/*
+ Q2 = diferença entre duas datas
+ @objetivo
+    Calcular a diferença em anos, meses e dias entre duas datas
+ @entrada
+    uma string datainicial, uma string datafinal. 
+ @saida
+    Retorna um tipo DiasMesesAnos. No atributo retorno, deve ter os possíveis valores abaixo
+    1 -> cálculo de diferença realizado com sucesso
+    2 -> datainicial inválida
+    3 -> datafinal inválida
+    4 -> datainicial > datafinal
+    Caso o cálculo esteja correto, os atributos qtdDias, qtdMeses e qtdAnos devem ser preenchidos com os valores correspondentes.
+ */
+DiasMesesAnos q2(char datainicial[], char datafinal[])
+{
+  DiasMesesAnos dma;
+	date inidat, findat;
+
+	inidat = Quebradata(datainicial);
+
+	findat = Quebradata(datafinal);
+
+	int nDias, nAnos, nMeses;
+
+	if(Testadata(&inidat)==0){
+		dma.retorno = 2;
+    return dma;
+	}
+	if(Testadata(&findat)==0){
+		dma.retorno = 3;
+    return dma;
+	}
+	if(inidat.ano > findat.ano){
+		dma.retorno = 4;
+    return dma;
+	}	
+		else if(inidat.ano==findat.ano){
+			if(inidat.mes>findat.mes){
+			 dma.retorno = 4;
+       return dma;
+			}
+				else if(inidat.mes==findat.mes){
+					if(inidat.dia>findat.dia){
+					dma.retorno = 4;
+          return dma;
+					}
+			}
+		}
+	nDias=findat.dia-inidat.dia;
+	nMeses=findat.mes-inidat.mes;
+	nAnos=findat.ano-inidat.ano;
+
+	if(nDias<0){
+		nMeses-=1;
+		if(findat.mes==3){
+			if(((findat.ano%4==0 && findat.ano%100!=0)  || findat.ano%400==0)){
+				nDias+=29;
+			}
+			else{
+				nDias+=28;
+			}
+		}
+		else if((inidat.mes<=7 && inidat.mes%2!=0) || (inidat.mes>7 &&inidat.mes%2==0)){
+
+			nDias+=30;
+		}
+		else{
+			nDias+=31;
+		}
+	}
+	
+	if(nMeses<0){
+		nAnos-=1;
+		nMeses+=12;
+	}
+		
+  dma.qtdDias = nDias;
+  dma.qtdMeses = nMeses;
+  dma.qtdAnos = nAnos;
+
+    //coloque o retorno correto
+  return dma;
+}
+
+/*
+ Q3 = encontrar caracter em texto
+ @objetivo
+    Pesquisar quantas vezes um determinado caracter ocorre em um texto
+ @entrada
+    uma string texto, um caracter c e um inteiro que informa se é uma pesquisa Case Sensitive ou não. Se isCaseSensitive = 1, a pesquisa deve considerar diferenças entre maiúsculos e minúsculos.
+        Se isCaseSensitive != 1, a pesquisa não deve  considerar diferenças entre maiúsculos e minúsculos.
+ @saida
+    Um número n >= 0.
+ */
+int q3(char *texto, char c, int isCaseSensitive)
+{
+    int qtdOcorrencias = 0;
+    int i;
+    char correspondentCharacter;
+    int tamanhoTexto = strlen(texto);
+
+    for (i = 0; i < tamanhoTexto; i++)
+        if (c == texto[i])
+            qtdOcorrencias++;
+
+    if (isCaseSensitive != 1) {
+        if (c > 'a' && c < 'z') 
+            correspondentCharacter = c - 32;
+        else if (c > 'A' && c < 'Z') {
+            correspondentCharacter = c + 32;
+        }
+        for (i = 0; i < tamanhoTexto; i++)
+            if (correspondentCharacter == texto[i])
+                qtdOcorrencias++;
+    }
+
+    return qtdOcorrencias;
+}
+
+/*
+ Q4 = encontrar palavra em texto
+ @objetivo
+    Pesquisar todas as ocorrências de uma palavra em um texto
+ @entrada
+    uma string texto base (strTexto), uma string strBusca e um vetor de inteiros (posicoes) que irá guardar as posições de início e fim de cada ocorrência da palavra (strBusca) no texto base (texto).
+ @saida
+    Um número n >= 0 correspondente a quantidade de ocorrências encontradas.
+    O vetor posicoes deve ser preenchido com cada entrada e saída correspondente. Por exemplo, se tiver uma única ocorrência, a posição 0 do vetor deve ser preenchido com o índice de início do texto, e na posição 1, deve ser preenchido com o índice de fim da ocorrencias. Se tiver duas ocorrências, a segunda ocorrência será amazenado nas posições 2 e 3, e assim consecutivamente. Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como há uma ocorrência da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
+        posicoes[0] = 13;
+        posicoes[1] = 16;
+        Observe que o índice da posição no texto deve começar ser contado a partir de 1.
+        O retorno da função, n, nesse caso seria 1;
+
+ */
+int q4(char *strTexto, char *strBusca, int posicoes[30])
+{
+    
+    int indices = 0;
+    int tamanhoTexto = strlen(strTexto);
+    int tamanhoBusca = strlen(strBusca);
+    int String = 0;
+
+    int i, j, k;
+    int qtdOcorrencias = 0;
+    int Caracter = 0;
+
+    for (i = 0, j = 0, k = 0; k < tamanhoTexto; i++, j++) {
+        
+        if (!(strTexto[i] > 0 && strTexto[i] < 127)) {
+            String = 0;
+            k++;
+            i = k - 1;
+            j = -1;
+            Caracter++;
+            
+        }
+
+        if (strTexto[i] == strBusca[j]) {
+            String++;
+            if (String == tamanhoBusca) {
+                posicoes[indices] = k + 1 - Caracter;
+                posicoes[indices + 1] = k + tamanhoBusca - Caracter;
+                indices+=2;
+
+                String = 0;
+                k++;
+                i = k - 1;
+                j = -1;
+                qtdOcorrencias++;
+            }
+        }
+        else {
+            String = 0;
+            k++;
+            i = k - 1;
+            j = -1;
+        }
+    }
+    
+
+    return qtdOcorrencias;
+}
+
+/*
+ Q5 = inverte número
+ @objetivo
+    Inverter número inteiro
+ @entrada
+    uma int num.
+ @saida
+    Número invertido
+ */
+
+int q5(int num)
+{
+    int numero;
+    int inverso = 0;
+    
+    while (num > 0)
+    {
+        numero = num % 10;
+        inverso = (inverso * 10) + numero;
+        num = num / 10;
+    }
+
+    return inverso;
+}
+
+/*
+ Q6 = ocorrência de um número em outro
+ @objetivo
+    Verificar quantidade de vezes da ocorrência de um número em outro
+ @entrada
+    Um número base (numerobase) e um número de busca (numerobusca).
+ @saida
+    Quantidade de vezes que número de busca ocorre em número base
+ */
+
+int q6(int numerobase, int numerobusca)
+{
+    int Ocorrer=0; 
+    int j=10;
+    for(; numerobusca/j>0; j*=10);
+    
+    while(numerobase>=numerobusca)
+    {
+	if(numerobase%j == numerobusca)
+  {
+		Ocorrer++;
+	}
+	numerobase/=10;
+    }
+    return Ocorrer;
+}
