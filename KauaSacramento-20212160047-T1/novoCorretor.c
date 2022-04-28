@@ -17,7 +17,7 @@ int main(){
     //pridntf("q2\n");
     //testQ2(); // 35 testes
     //prindtf("q3\n");
-    testQ3(); // 13 testes
+    //testQ3(); // 13 testes
     //prdintf("q4\n");
     //testQ4(); // 22 testes
     //prdintf("q5\n");
