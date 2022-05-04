@@ -1,10 +1,21 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(){
+int main(void) {
 
-  int valor = 10;
-  
-  int * ptr;
+	int *ptr;
+	int **pptr;
 
-  printf("%d", *ptr);
+	int valor = 10;
+
+	ptr = &valor;
+	pptr = &ptr;
+
+	printf("Endereço de ptr = %x", &ptr);
+	printf("Endereço de pptr = %x", &pptr);
+
+	printf("Valor ptr = %d", *ptr);
+	printf("Valor pptr = %d", **pptr);
+
+	return 0;
 }
