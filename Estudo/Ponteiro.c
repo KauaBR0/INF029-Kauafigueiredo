@@ -4,7 +4,7 @@ int main(){
 
   int valor = 10;
   
-  int* ptr;
+  int * ptr;
 
-  printf("%d", &valor);
+  printf("%d", *ptr);
 }
