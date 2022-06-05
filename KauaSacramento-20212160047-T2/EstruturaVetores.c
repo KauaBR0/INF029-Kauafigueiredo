@@ -119,8 +119,8 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
-	    int existe = 0;
 	    int aux;
+	    int achou = 0;
 
 	    if (ehPosicaoValida(posicao))
 	        return POSICAO_INVALIDA;
@@ -136,7 +136,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 	    int qtd = vetorPrincipal[posicao].qtd;
 
 	    if (qtd == 1 && vetorPrincipal[posicao].auxiliar[0] == valor)
-	      existe = 1;
+	      achou = 1;
 
 	    else
 	      for (int i = 0; i < qtd-1; i++)
@@ -146,10 +146,10 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 	          vetorPrincipal[posicao].auxiliar[i] = vetorPrincipal[posicao].auxiliar[i+1];
 	          vetorPrincipal[posicao].auxiliar[i+1] = aux;
 
-	          existe = 1;
+	          achou = 1;
 	        }
 
-	    if (existe == 0)
+	    if (achou == 0)
 	        return NUMERO_INEXISTENTE;
 	    else
 	      vetorPrincipal[posicao].qtd--;
@@ -177,6 +177,8 @@ Retorno (int)
 
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]){
 
+    int qtd;
+
     if (ehPosicaoValida(posicao))
         return POSICAO_INVALIDA;
 
@@ -185,7 +187,7 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]){
     if (vetorPrincipal[posicao].auxiliar == NULL)
         return SEM_ESTRUTURA_AUXILIAR;
 
-    int qtd = vetorPrincipal[posicao].qtd;
+    qtd = vetorPrincipal[posicao].qtd;
 
     for (int i = 0; i < qtd; i++)
         vetorAux[i] = vetorPrincipal[posicao].auxiliar[i];
@@ -225,6 +227,9 @@ void bubbleSort(int vetorAux[], int n){
 
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+
+    int qtd;
+
     if (ehPosicaoValida(posicao))
         return POSICAO_INVALIDA;
 
@@ -233,7 +238,7 @@ int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
     if (vetorPrincipal[posicao].auxiliar == NULL)
         return SEM_ESTRUTURA_AUXILIAR;
 
-    int qtd = vetorPrincipal[posicao].qtd;
+    qtd = vetorPrincipal[posicao].qtd;
 
     for (int i = 0; i < qtd; i++)
         vetorAux[i] = vetorPrincipal[posicao].auxiliar[i];
@@ -252,19 +257,20 @@ Rertono (int)
 */
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
+	int qtd;
+	int x = 0;
+
 	  if (todasEstruturasAuxiliaresVazias())
 	        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
 
-	    int qtd;
-	    int k = 0;
 
 	    for (int i = 0; i < TAM; i++){
 
 	        if (vetorPrincipal[i].auxiliar != NULL){
 	            qtd = vetorPrincipal[i].qtd;
 
-	            for (int j = 0; j < qtd; j++, k++)
-	                 vetorAux[k] = vetorPrincipal[i].auxiliar[j];
+	            for (int j = 0; j < qtd; j++, x++)
+	                 vetorAux[x] = vetorPrincipal[i].auxiliar[j];
 	        }
 	    }
 
@@ -331,6 +337,8 @@ Rertono (int)
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 {
 
+    int qtd;
+
 	 if (ehPosicaoValida(posicao))
 	        return POSICAO_INVALIDA;
 
@@ -351,7 +359,7 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 
 	    vetorPrincipal[posicao].tamanho = novoTamanho;
 
-	    int qtd = vetorPrincipal[posicao].qtd;
+	    qtd = vetorPrincipal[posicao].qtd;
 
 	    if (qtd > novoTamanho)
 	        vetorPrincipal[posicao].qtd = novoTamanho;
@@ -469,6 +477,7 @@ Retorno void
 void getDadosListaEncadeadaComCabecote(No* inicio, int vetorAux[]){
 
     No *outro = inicio->prox;
+    
     int i = 0;
 
     while (outro->prox != NULL)
